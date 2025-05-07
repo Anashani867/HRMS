@@ -39,7 +39,7 @@ class EmployeeSalaryDeductionController extends Controller
         // إنشاء سجل الخصم
         $salaryDeduction = EmployeeSalaryDeduction::create([
             'employee_id' => $request->employee_id,
-            'discounts_types_id' => $request->discounts_types_id,
+            'discount_type_id' => $request->discounts_types_id,
             'value' => $request->value,
             'date' => $date,
             'notes' => $request->notes,

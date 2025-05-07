@@ -11,7 +11,7 @@ class EmployeeSalaryDeduction extends Model
 
     protected $fillable = [
         'employee_id',
-        'discounts_types_id',
+        'discount_type_id',
         'value',
         'date',
         'notes',
@@ -26,8 +26,8 @@ class EmployeeSalaryDeduction extends Model
 
     public function deduction_type()
     {
-        return $this->belongsTo(DiscountsType::class, 'discounts_types_id');
-    }
+        return $this->belongsTo(DiscountsType::class, 'discount_type_id');
+    }    
     
 
 }

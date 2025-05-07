@@ -64,7 +64,10 @@ class EmployeesController extends Controller
     $com_code = auth()->user()->com_code;
     Log::info('Com Code: ' . $com_code);
 
-    // try {
+    Log::info('Data received for new employee: ', $request->all());
+
+
+    try {
         // التحقق من صحة البيانات المدخلة
         $validated = $request->validate([
             'emp_name' => 'required|string|max:255',
@@ -97,7 +100,7 @@ class EmployeesController extends Controller
             'emp_nationality_id' => 'required|exists:nationalities,id',
 
         ]);
-
+        Log::info('Data validated successfully.');
         // إعداد البيانات لإضافتها في قاعدة البيانات
         $data = $request->only([
             'employees_code',
@@ -170,6 +173,9 @@ class EmployeesController extends Controller
 
 
         ]);
+
+        Log::info('Data ready to be saved: ', $data);
+
         
         if (empty($data['shifts_types_id'])) {
             $data['shift_type_id'] = null; // أو يمكنك تحديد قيمة افتراضية
@@ -183,16 +189,17 @@ class EmployeesController extends Controller
 
         // حفظ الموظف في قاعدة البيانات
         $employee = Employee::create($data);
+        Log::info('Employee added successfully: ', $employee->toArray());
 
         // إعادة التوجيه مع رسالة نجاح
         return redirect()->route("Employees.index")->with('success', 'تم إضافة الموظف بنجاح');
-    // } catch (\Exception $e) {
-    //     Log::error('Error while storing employee: ' . $e->getMessage(), [
-    //         'data' => $request->all(),
-    //     ]);
+    } catch (\Exception $e) {
+        Log::error('Error while storing employee: ' . $e->getMessage(), [
+            'data' => $request->all(),
+        ]);
 
-        // return redirect()->back()->with('error', 'حدث خطأ أثناء إضافة الموظف');
-    // }
+        return redirect()->back()->with('error', 'حدث خطأ أثناء إضافة الموظف');
+    }
 }
 
 

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('departments', function (Blueprint $table) {
+        Schema::table('departements', function (Blueprint $table) {
             $table->softDeletes();  // هذا سيضيف عمود deleted_at
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('departments', function (Blueprint $table) {
+        Schema::table('departements', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }
